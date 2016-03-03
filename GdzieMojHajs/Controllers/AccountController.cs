@@ -38,6 +38,16 @@ namespace GdzieMojHajs.Controllers
             _logger = loggerFactory.CreateLogger<AccountController>();
         }
 
+        /// <summary>
+        /// Finds the current user and returns a view with editable profile info
+        /// </summary>
+        public IActionResult Index ()
+        {
+            var currentUser = _userManager.FindByIdAsync(User.GetUserId());
+            //ViewBag.UserInfo = currentUser.Result.UserProfileInfo;
+            return View(currentUser.Result.UserProfileInfo);
+        }
+
         //
         // GET: /Account/Login
         [HttpGet]
@@ -104,7 +114,18 @@ namespace GdzieMojHajs.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser
+                {
+                    UserName = model.Email,
+                    Email = model.Email,
+                    UserProfileInfo = new UserProfileInfo
+                    {
+                        Name = model.Name,
+                        Surname = model.Surname,
+                        Email = model.Email,
+                    }
+                };
+
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
