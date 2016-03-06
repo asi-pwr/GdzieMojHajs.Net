@@ -1,5 +1,10 @@
 @using System.Security.Claims
 
+
+
+<ul class="nav navbar-nav navbar-right">    @* if user signed in *@
+    <li><a asp-controller="Home" asp-action="Index" class="glyphicon glyphicon-cog"></a></li>
+</ul>
 @if (User.IsSignedIn())
 {
     <form asp-controller="Account" asp-action="LogOff" method="post" id="logoutForm" class="navbar-right">
@@ -16,7 +21,6 @@
 else
 {
     <ul class="nav navbar-nav navbar-right">
-        <li><a asp-controller="Account" asp-action="Register">Register</a></li>
         <li><a asp-controller="Account" asp-action="Login">Log in</a></li>
     </ul>
 }

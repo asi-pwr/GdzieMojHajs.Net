@@ -1,6 +1,7 @@
 body {
     padding-top: 50px;
     padding-bottom: 20px;
+    background-color:#d3c02f;
 }
 
 /* Wrapping element */
@@ -8,6 +9,8 @@ body {
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
+    height: 100%;
+    /*width:unset;*/
 }
 
 /* Set widths on the form inputs since otherwise they're 100% wide */
@@ -17,8 +20,29 @@ textarea {
     max-width: 280px;
 }
 
+ul li{
+    font-size:24px;
+}
+
 /* Carousel */
 .carousel-caption p {
     font-size: 20px;
     line-height: 1.4;
+}
+
+.tables{
+    padding-top:20px;
+}
+
+table caption{
+    text-align:center;
+    font-weight:900;
+    font-size:24px;
+    color:#333;
+}
+#MyDebtors{
+    background-color:#5cb85c;
+}
+#MyDebts{
+    background-color:#d9534f;
 }
