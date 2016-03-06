@@ -5,8 +5,11 @@
 @* Tables will be generated automaticly *@
 <div class="tables">
     <div class="col-lg-6">
-        <table class="table table-hover">
-            <caption id="MyDebtors">My Debtors</caption>
+        <table class="table table-striped" id="MyDebtors">
+            <caption >
+                <div class="col-lg-11">My Debtors</div>
+                <div class="col-lg-1"><a asp-controller="Home" asp-action="Index" class="glyphicon glyphicon-plus" title="Add new debt"></a></div>
+            </caption>
             <thead>
                 <tr>
                     <th>#</th>
@@ -14,6 +17,7 @@
                     <th>Last Name</th>
                     <th>Debt</th>
                     <th>Date</th>
+                    <th>Options</th>
                 </tr>
             </thead>
             <tbody>
@@ -23,13 +27,34 @@
                     <td>Choluj</td>
                     <td>24zl</td>
                     <td>06.03.2016</td>
+                    <td><a asp-controller="Home" asp-action="Index" class="glyphicon glyphicon-comment" title="Comment"></a>
+                        <a asp-controller="Home" asp-action="Index" class="glyphicon glyphicon-edit" title="Edit"></a>
+                        <a asp-controller="Home" asp-action="Index" class="glyphicon glyphicon-user" title="Rewrite"></a>
+                        <a asp-controller="Home" asp-action="Index" class="glyphicon glyphicon-ok" title="Pay off"></a>                    
+                    </td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>Daniel</td>
+                    <td>Choluj</td>
+                    <td>24zl</td>
+                    <td>06.03.2016</td>
+                    <td>
+                        <a asp-controller="Home" asp-action="Index" class="glyphicon glyphicon-comment" title="Comment"></a>
+                        <a asp-controller="Home" asp-action="Index" class="glyphicon glyphicon-edit" title="Edit"></a>
+                        <a asp-controller="Home" asp-action="Index" class="glyphicon glyphicon-user" title="Rewrite"></a>
+                        <a asp-controller="Home" asp-action="Index" class="glyphicon glyphicon-ok" title="Pay off"></a>
+                    </td>
                 </tr>
             </tbody>
         </table>
     </div>
     <div class="col-lg-6">
-        <table class="table table-hover">
-            <caption id="MyDebts">My Debts</caption>
+        <table class="table table-striped" id="MyDebts">
+            <caption>
+                <div class="col-lg-11">My Debts</div>
+                <div class="col-lg-1"><a asp-controller="Home" asp-action="Index" class="glyphicon glyphicon-plus" title="Add new debt"></a></div>
+            </caption>
             <thead>
                 <tr>
                     <th>#</th>
@@ -37,15 +62,35 @@
                     <th>Last Name</th>
                     <th>Debt</th>
                     <th>Date</th>
+                    <th>Options</th>
                 </tr>
             </thead>
             <tbody>
-                <tr class="table-danger">
+                <tr>
                     <td>1</td>
                     <td>Jurand</td>
                     <td>From Spychow</td>
                     <td>12.50zl</td>
                     <td>02.03.2016</td>
+                    <td>
+                        <a asp-controller="Home" asp-action="Index" class="glyphicon glyphicon-comment" title="Comment"></a>
+                        <a asp-controller="Home" asp-action="Index" class="glyphicon glyphicon-edit" title="Edit"></a>
+                        <a asp-controller="Home" asp-action="Index" class="glyphicon glyphicon-user" title="Rewrite"></a>
+                        <a asp-controller="Home" asp-action="Index" class="glyphicon glyphicon-ok" title="Pay off"></a>
+                    </td>               
+                 </tr>
+                <tr>
+                    <td>1</td>
+                    <td>Jurand</td>
+                    <td>From Spychow</td>
+                    <td>12.50zl</td>
+                    <td>02.03.2016</td>
+                    <td>
+                        <a asp-controller="Home" asp-action="Index" class="glyphicon glyphicon-comment" title="Comment"></a>
+                        <a asp-controller="Home" asp-action="Index" class="glyphicon glyphicon-edit" title="Edit"></a>
+                        <a asp-controller="Home" asp-action="Index" class="glyphicon glyphicon-user" title="Rewrite"></a>
+                        <a asp-controller="Home" asp-action="Index" class="glyphicon glyphicon-ok" title="Pay off"></a>
+                    </td>
                 </tr>
             </tbody>
         </table>

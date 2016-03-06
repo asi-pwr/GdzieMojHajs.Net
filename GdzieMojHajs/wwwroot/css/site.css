@@ -40,9 +40,25 @@ table caption{
     font-size:24px;
     color:#333;
 }
-#MyDebtors{
+#MyDebtors>caption{
     background-color:#5cb85c;
 }
-#MyDebts{
+#MyDebts>caption{
     background-color:#d9534f;
 }
+
+a{
+    text-decoration:none !important; 
+    color:inherit ;
+}
+table a:hover{
+    color:#555;
+}
+#MyDebtors>tbody>tr:nth-child(odd)>td, 
+#MyDebtors>tbody>tr:nth-child(odd)>th {
+   background-color: #72e072;
+ }
+#MyDebts>tbody>tr:nth-child(odd)>td, 
+#MyDebts>tbody>tr:nth-child(odd)>th {
+   background-color: #e08372;
+ }
