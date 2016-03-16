@@ -76,6 +76,28 @@ namespace GdzieMojHajs.Migrations
 
                     b.Property<DateTime>("Date");
 
+                    b.Property<int>("DebtOwnerId");
+
+                    b.Property<int>("DebtReceiverId");
+
+                    b.HasKey("Id");
+                });
+
+            modelBuilder.Entity("GdzieMojHajs.Models.Notification", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("DebtId");
+
+                    b.Property<int>("NotificationReceiverId");
+
+                    b.Property<int>("NotificationSenderId");
+
+                    b.Property<bool>("Seen");
+
+                    b.Property<string>("Text");
+
                     b.HasKey("Id");
                 });
 
@@ -182,6 +204,32 @@ namespace GdzieMojHajs.Migrations
                     b.HasOne("GdzieMojHajs.Models.UserProfileInfo")
                         .WithMany()
                         .HasForeignKey("UserProfileInfoId");
+                });
+
+            modelBuilder.Entity("GdzieMojHajs.Models.Debt", b =>
+                {
+                    b.HasOne("GdzieMojHajs.Models.UserProfileInfo")
+                        .WithMany()
+                        .HasForeignKey("DebtOwnerId");
+
+                    b.HasOne("GdzieMojHajs.Models.UserProfileInfo")
+                        .WithMany()
+                        .HasForeignKey("DebtReceiverId");
+                });
+
+            modelBuilder.Entity("GdzieMojHajs.Models.Notification", b =>
+                {
+                    b.HasOne("GdzieMojHajs.Models.Debt")
+                        .WithMany()
+                        .HasForeignKey("DebtId");
+
+                    b.HasOne("GdzieMojHajs.Models.UserProfileInfo")
+                        .WithMany()
+                        .HasForeignKey("NotificationReceiverId");
+
+                    b.HasOne("GdzieMojHajs.Models.UserProfileInfo")
+                        .WithMany()
+                        .HasForeignKey("NotificationSenderId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNet.Identity.EntityFramework.IdentityRoleClaim<string>", b =>
