@@ -23,6 +23,9 @@ textarea {
 ul li{
     font-size:24px;
 }
+ul li a:hover{
+    cursor:pointer;
+}
 
 /* Carousel */
 .carousel-caption p {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Mvc;
+using GdzieMojHajs.Models;
 
 namespace GdzieMojHajs.Controllers
 {
@@ -17,5 +18,10 @@ namespace GdzieMojHajs.Controllers
         {
             return View();
         }
+
+        //public IActionResult WatchNotifications(Notification receiveds, Notification send)
+        //{
+        //    return PartialView("_WatchNotifications");
+        //}
     }
 }

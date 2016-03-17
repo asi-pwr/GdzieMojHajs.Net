@@ -18,7 +18,8 @@ namespace GdzieMojHajs.Controllers
         // GET: Debts
         public IActionResult Index()
         {
-            return View(_context.Debt.ToList());
+            var applicationDbContext = _context.Debt.Include(d => d.DebtOwner).Include(d => d.DebtReceiver);
+            return View(applicationDbContext.ToList());
         }
 
         // GET: Debts/Details/5
@@ -41,6 +42,8 @@ namespace GdzieMojHajs.Controllers
         // GET: Debts/Create
         public IActionResult Create()
         {
+            ViewData["DebtOwnerId"] = new SelectList(_context.UserProfileInfo, "Id", "DebtOwner");
+            ViewData["DebtReceiverId"] = new SelectList(_context.UserProfileInfo, "Id", "DebtReceiver");
             return View();
         }
 
@@ -55,6 +58,8 @@ namespace GdzieMojHajs.Controllers
                 _context.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewData["DebtOwnerId"] = new SelectList(_context.UserProfileInfo, "Id", "DebtOwner", debt.DebtOwnerId);
+            ViewData["DebtReceiverId"] = new SelectList(_context.UserProfileInfo, "Id", "DebtReceiver", debt.DebtReceiverId);
             return View(debt);
         }
 
@@ -71,6 +76,8 @@ namespace GdzieMojHajs.Controllers
             {
                 return HttpNotFound();
             }
+            ViewData["DebtOwnerId"] = new SelectList(_context.UserProfileInfo, "Id", "DebtOwner", debt.DebtOwnerId);
+            ViewData["DebtReceiverId"] = new SelectList(_context.UserProfileInfo, "Id", "DebtReceiver", debt.DebtReceiverId);
             return View(debt);
         }
 
@@ -85,6 +92,8 @@ namespace GdzieMojHajs.Controllers
                 _context.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewData["DebtOwnerId"] = new SelectList(_context.UserProfileInfo, "Id", "DebtOwner", debt.DebtOwnerId);
+            ViewData["DebtReceiverId"] = new SelectList(_context.UserProfileInfo, "Id", "DebtReceiver", debt.DebtReceiverId);
             return View(debt);
         }
 

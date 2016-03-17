@@ -1,6 +1,13 @@
+@model GdzieMojHajs.Models.UserProfileInfo
+
 @{
     ViewData["Title"] = "Home Page";
 }
+
+<div id="partialNotification">
+    @Html.Partial("_WatchNotifications");
+</div>
+
 
 @* Tables will be generated automaticly *@
 <div class="tables">
