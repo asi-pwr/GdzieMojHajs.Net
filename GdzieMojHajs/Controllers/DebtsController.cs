@@ -3,6 +3,7 @@ using Microsoft.AspNet.Mvc;
 using Microsoft.AspNet.Mvc.Rendering;
 using Microsoft.Data.Entity;
 using GdzieMojHajs.Models;
+using System.Collections.Generic;
 
 namespace GdzieMojHajs.Controllers
 {
@@ -42,8 +43,8 @@ namespace GdzieMojHajs.Controllers
         // GET: Debts/Create
         public IActionResult Create()
         {
-            ViewData["DebtOwnerId"] = new SelectList(_context.UserProfileInfo, "Id", "DebtOwner");
-            ViewData["DebtReceiverId"] = new SelectList(_context.UserProfileInfo, "Id", "DebtReceiver");
+            ViewData["DebtOwnerId"] = new SelectList(_context.UserProfileInfo, "Id", "Email");
+            ViewData["DebtReceiverId"] = new SelectList(_context.UserProfileInfo, "Id", "Email");
             return View();
         }
 
@@ -58,8 +59,8 @@ namespace GdzieMojHajs.Controllers
                 _context.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewData["DebtOwnerId"] = new SelectList(_context.UserProfileInfo, "Id", "DebtOwner", debt.DebtOwnerId);
-            ViewData["DebtReceiverId"] = new SelectList(_context.UserProfileInfo, "Id", "DebtReceiver", debt.DebtReceiverId);
+            ViewData["DebtOwnerId"] = new SelectList(_context.UserProfileInfo, "Id", "Email", debt.DebtOwnerId);
+            ViewData["DebtReceiverId"] = new SelectList(_context.UserProfileInfo, "Id", "Email", debt.DebtReceiverId);
             return View(debt);
         }
 
