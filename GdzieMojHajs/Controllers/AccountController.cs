@@ -112,19 +112,26 @@ namespace GdzieMojHajs.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
+            ApplicationDbContext context = new ApplicationDbContext(); ;
+
             if (ModelState.IsValid)
             {
+                var uPI = new UserProfileInfo
+                {
+                    Name = model.Name,
+                    Surname = model.Surname,
+                    Email = model.Email,
+                };
+
                 var user = new ApplicationUser
                 {
                     UserName = model.Email,
                     Email = model.Email,
-                    UserProfileInfo = new UserProfileInfo
-                    {
-                        Name = model.Name,
-                        Surname = model.Surname,
-                        Email = model.Email,
-                    }
+                    //UserProfileInfo = uPI
                 };
+
+                context.UserProfileInfo.Add(uPI);
+                context.SaveChanges();
 
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)

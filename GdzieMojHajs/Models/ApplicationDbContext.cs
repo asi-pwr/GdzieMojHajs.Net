@@ -5,11 +5,13 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Data.Entity;
 using GdzieMojHajs.Models;
+using Microsoft.Data.Entity.Infrastructure;
 
 namespace GdzieMojHajs.Models
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
