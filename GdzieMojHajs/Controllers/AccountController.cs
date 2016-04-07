@@ -44,6 +44,7 @@ namespace GdzieMojHajs.Controllers
         public IActionResult Index ()
         {
             var currentUser = _userManager.FindByIdAsync(User.GetUserId());
+            
             //ViewBag.UserInfo = currentUser.Result.UserProfileInfo;
             return View(currentUser.Result.UserProfileInfo);
         }
@@ -122,17 +123,16 @@ namespace GdzieMojHajs.Controllers
                     Surname = model.Surname,
                     Email = model.Email,
                 };
-
+                
+                context.UserProfileInfo.Add(uPI);
+                context.SaveChanges();
                 var user = new ApplicationUser
                 {
                     UserName = model.Email,
                     Email = model.Email,
-                    //UserProfileInfo = uPI
+                    UserProfileInfo = uPI
                 };
-
-                context.UserProfileInfo.Add(uPI);
-                context.SaveChanges();
-
+                
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
