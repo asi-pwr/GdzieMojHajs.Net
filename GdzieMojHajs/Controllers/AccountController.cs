@@ -44,6 +44,7 @@ namespace GdzieMojHajs.Controllers
         public IActionResult Index ()
         {
             var currentUser = _userManager.FindByIdAsync(User.GetUserId());
+            
             //ViewBag.UserInfo = currentUser.Result.UserProfileInfo;
             return View(currentUser.Result.UserProfileInfo);
         }
@@ -119,10 +120,10 @@ namespace GdzieMojHajs.Controllers
                     UserName = model.Email,
                     Email = model.Email,
                     UserProfileInfo = new UserProfileInfo
-                    {
-                        Name = model.Name,
-                        Surname = model.Surname,
-                        Email = model.Email,
+                {
+                    Name = model.Name,
+                    Surname = model.Surname,
+                    Email = model.Email,
                     }
                 };
 
