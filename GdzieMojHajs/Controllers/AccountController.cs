@@ -18,6 +18,7 @@ namespace GdzieMojHajs.Controllers
     [Authorize]
     public class AccountController : Controller
     {
+        private ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IEmailSender _emailSender;
@@ -29,12 +30,14 @@ namespace GdzieMojHajs.Controllers
             SignInManager<ApplicationUser> signInManager,
             IEmailSender emailSender,
             ISmsSender smsSender,
-            ILoggerFactory loggerFactory)
+            ILoggerFactory loggerFactory,
+            ApplicationDbContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
             _smsSender = smsSender;
+            _context = context;
             _logger = loggerFactory.CreateLogger<AccountController>();
         }
 
@@ -115,16 +118,20 @@ namespace GdzieMojHajs.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser
-                {
-                    UserName = model.Email,
-                    Email = model.Email,
-                    UserProfileInfo = new UserProfileInfo
+                var uPI = new UserProfileInfo
                 {
                     Name = model.Name,
                     Surname = model.Surname,
                     Email = model.Email,
-                    }
+                };
+                
+                _context.UserProfileInfo.Add(uPI);
+                _context.SaveChanges();
+                var user = new ApplicationUser
+                {
+                    UserName = model.Email,
+                    Email = model.Email,
+                    UserProfileInfo = uPI
                 };
 
                 var result = await _userManager.CreateAsync(user, model.Password);

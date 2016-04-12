@@ -19,6 +19,7 @@ namespace GdzieMojHajs.Controllers
         // GET: Debts
         public IActionResult Index()
         {
+            var dupa = _context.UserProfileInfo.ToList();
             var applicationDbContext = _context.Debt.Include(d => d.DebtOwner).Include(d => d.DebtReceiver);
             return View(applicationDbContext.ToList());
         }
