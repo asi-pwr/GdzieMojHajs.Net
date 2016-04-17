@@ -3,6 +3,9 @@ using Microsoft.AspNet.Mvc;
 using Microsoft.AspNet.Mvc.Rendering;
 using Microsoft.Data.Entity;
 using GdzieMojHajs.Models;
+using Microsoft.AspNet.Authorization;
+using GdzieMojHajs.ViewModels.UserProfileInfos;
+using System.Collections.Generic;
 
 namespace GdzieMojHajs.Controllers
 {
@@ -16,9 +19,23 @@ namespace GdzieMojHajs.Controllers
         }
 
         // GET: UserProfileInfoes
+        [Authorize]
         public IActionResult Index()
         {
-            return View(_context.UserProfileInfo.ToList());
+            var userDebts = new UserDebtsViewModel();
+            List<Debt> list = new List<Debt>(); 
+            var applicationDbContext = _context.Debt.Include(n => n.DebtOwner).Include(n => n.DebtReceiver);
+
+            foreach (var debt in applicationDbContext.Where(x=>x.DebtOwner.Email == User.Identity.Name).ToList())
+            {
+                userDebts.OwnedDebts.Add(debt);
+            }
+            foreach (var debt in applicationDbContext.Where(x => x.DebtReceiver.Email == User.Identity.Name).ToList())
+            {
+                userDebts.ReceivedDebts.Add(debt);
+            }
+
+            return View(userDebts);
         }
 
         // GET: UserProfileInfoes/Details/5

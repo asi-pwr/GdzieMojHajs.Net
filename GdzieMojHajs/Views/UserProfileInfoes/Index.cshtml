@@ -1,50 +1,110 @@
-@model IEnumerable<GdzieMojHajs.Models.UserProfileInfo>
+@model GdzieMojHajs.ViewModels.UserProfileInfos.UserDebtsViewModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Home Page";
 }
 
-<h2>Index</h2>
+@*<div id="partialNotification">
+    @Html.Partial("_WatchNotifications");
+</div>*@
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.AllowsToMigrateDebts)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Email)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Surname)
-        </th>
-        <th></th>
-    </tr>
-    
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.AllowsToMigrateDebts)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Surname)
-        </td>
-        <td>
-            <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-            <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-            <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-        </td>
-    </tr>
-}
-</table>
+
+@* Tables will be generated automaticly *@
+
+<div class="tables">
+    <div class="col-lg-6">
+        <table class="table table-striped" id="MyDebtors">
+            <caption>
+                <div class="col-lg-12">My Debtors</div>
+                @* <div class="col-lg-1"><a asp-controller="Home" asp-action="Index" class="glyphicon glyphicon-plus" title="Add new debt"></a></div>*@
+            </caption>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Ammount</th>
+                    <th>Date</th>
+                    <th>Options</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.OwnedDebts)
+                {
+                    <tr>
+                        <td>
+                            1
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DebtReceiver.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DebtReceiver.Surname)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Amount)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Date)
+                        </td>
+                        <td>
+                            <a asp-controller="Home" asp-action="Index" class="glyphicon glyphicon-comment" title="Comment"></a>
+                            <a asp-controller="Home" asp-action="Index" class="glyphicon glyphicon-edit" title="Edit"></a>
+                            <a asp-controller="Home" asp-action="Index" class="glyphicon glyphicon-user" title="Rewrite"></a>
+                            <a asp-controller="Home" asp-action="Index" class="glyphicon glyphicon-ok" title="Pay off"></a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+
+
+    <div class="col-lg-6">
+        <table class="table table-striped" id="MyDebts">
+            <caption>
+                <div class="col-lg-12">My Debts</div>
+                @*<div class="col-lg-1"><a asp-controller="Home" asp-action="Index" class="glyphicon glyphicon-plus" title="Add new debt"></a></div>*@
+            </caption>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Ammount</th>
+                    <th>Date</th>
+                    <th>Options</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.ReceivedDebts)
+                {
+                    <tr>
+                        <td>
+                            1
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DebtOwner.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DebtOwner.Surname)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Amount)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Date)
+                        </td>
+                        <td>
+                            <a asp-controller="Home" asp-action="Index" class="glyphicon glyphicon-comment" title="Comment"></a>
+                            <a asp-controller="Home" asp-action="Index" class="glyphicon glyphicon-edit" title="Edit"></a>
+                            <a asp-controller="Home" asp-action="Index" class="glyphicon glyphicon-user" title="Rewrite"></a>
+                            <a asp-controller="Home" asp-action="Index" class="glyphicon glyphicon-ok" title="Pay off"></a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

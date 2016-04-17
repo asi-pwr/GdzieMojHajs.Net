@@ -98,7 +98,7 @@ namespace GdzieMojHajs
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=UserProfileInfoes}/{action=Index}/{id?}");
             });
         }
 

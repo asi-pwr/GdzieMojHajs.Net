@@ -4,7 +4,7 @@ using Microsoft.AspNet.Mvc.Rendering;
 using Microsoft.Data.Entity;
 using GdzieMojHajs.Models;
 using System.Collections.Generic;
-using GdzieMojHajs.ViewModels.Notification;
+using GdzieMojHajs.ViewModels.Notifications;
 using Microsoft.AspNet.Identity;
 using System.Security.Claims;
 using System;
