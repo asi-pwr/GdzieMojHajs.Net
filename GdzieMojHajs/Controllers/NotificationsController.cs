@@ -4,6 +4,10 @@ using Microsoft.AspNet.Mvc.Rendering;
 using Microsoft.Data.Entity;
 using GdzieMojHajs.Models;
 using System.Collections.Generic;
+using GdzieMojHajs.ViewModels.Notification;
+using Microsoft.AspNet.Identity;
+using System.Security.Claims;
+using System;
 
 namespace GdzieMojHajs.Controllers
 {
@@ -45,26 +49,35 @@ namespace GdzieMojHajs.Controllers
         {
             ViewData["DebtId"] = ToDebtSelectList(_context.Debt.ToList());
             ViewData["NotificationReceiverId"] = ToUserSelectList(_context.UserProfileInfo.ToList());
-            ViewData["NotificationSenderId"] = ToUserSelectList(_context.UserProfileInfo.ToList());
             return View();
         }
 
         // POST: Notifications/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Notification notification)
+        public IActionResult Create(NotificationViewModel notification)
         {
             if (ModelState.IsValid)
             {
-                _context.Notification.Add(notification);
+                var currentUserProfileInfo = _context.UserProfileInfo.Where(x => x.Email == User.Identity.Name).First();
+
+                var not = new Notification
+                {
+                    //Debt = notification.Debt,
+                    //NotificationReceiver = notification.NotificationReceiver,
+                    DebtId = notification.DebtId,
+                    NotificationReceiverId = notification.NotificationReceiverId,
+                    Text = notification.Text,
+                    NotificationSenderId = currentUserProfileInfo.Id
+                    //NotificationSender = _context.UserProfileInfo.Select(x=>x.Email==)
+                };
+                _context.Notification.Add(not);
                 _context.SaveChanges();
                 return RedirectToAction("Index");
             }
             ViewData["DebtId"] = ToDebtSelectList(_context.Debt.ToList());
             ViewData["NotificationReceiverId"] = ToUserSelectList(_context.UserProfileInfo.ToList());
-            ViewData["NotificationSenderId"] = ToUserSelectList(_context.UserProfileInfo.ToList());
 
-            //notification.NotificationSender = 
             return View(notification);
         }
 

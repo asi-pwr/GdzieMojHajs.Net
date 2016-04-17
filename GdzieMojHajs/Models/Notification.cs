@@ -24,7 +24,7 @@ namespace GdzieMojHajs.Models
 
         [ForeignKey("Debt")]
         public int DebtId { get; set; }
-        public Debt Debt { get; set; }
+        public virtual Debt Debt { get; set; }
 
         //place for DebtMigration
 

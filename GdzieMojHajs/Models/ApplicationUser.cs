@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.Security.Principal;
+using System.Security.Claims;
 
 namespace GdzieMojHajs.Models
 {
@@ -10,5 +12,15 @@ namespace GdzieMojHajs.Models
     public class ApplicationUser : IdentityUser
     {
         public virtual UserProfileInfo UserProfileInfo { get; set; }
+
     }
+    //public static class IdentityExtensions
+    //{
+    //    public static string UserProfileInfo(this IIdentity identity)
+    //    {
+    //        var claim = ((ClaimsIdentity)identity).FindFirst("UserProfileInfo");
+    //        // Test for null to avoid issues during local testing
+    //        return (claim != null) ? claim.Value : string.Empty;
+    //    }
+    //}
 }
