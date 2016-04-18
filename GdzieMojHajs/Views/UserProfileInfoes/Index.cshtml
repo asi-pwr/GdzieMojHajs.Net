@@ -34,23 +34,23 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var item in Model.OwnedDebts)
+                    @foreach (var item in Model.OwnedDebts.Select((item, index) => new { item, index = index+1 }))
                     {
                         <tr>
                             <td>
-                                1
+                                @item.index
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.DebtReceiver.Name)
+                                @Html.DisplayFor(modelItem => item.item.DebtReceiver.Name)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.DebtReceiver.Surname)
+                                @Html.DisplayFor(modelItem => item.item.DebtReceiver.Surname)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.Amount)
+                                @Html.DisplayFor(modelItem => item.item.Amount)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.Date)
+                                @Html.DisplayFor(modelItem => item.item.Date)
                             </td>
                             <td>
                                 <a asp-controller="Home" asp-action="Index" class="glyphicon glyphicon-comment" title="Comment"></a>
@@ -88,23 +88,23 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in Model.ReceivedDebts)
+                @foreach (var item in Model.ReceivedDebts.Select((item, index) => new { item, index = index + 1 }))
                 {
                     <tr>
                         <td>
-                            1
+                            @item.index
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.DebtOwner.Name)
+                            @Html.DisplayFor(modelItem => item.item.DebtOwner.Name)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.DebtOwner.Surname)
+                            @Html.DisplayFor(modelItem => item.item.DebtOwner.Surname)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Amount)
+                            @Html.DisplayFor(modelItem => item.item.Amount)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Date)
+                            @Html.DisplayFor(modelItem => item.item.Date)
                         </td>
                         <td>
                             <a asp-controller="Home" asp-action="Index" class="glyphicon glyphicon-comment" title="Comment"></a>
@@ -131,7 +131,7 @@
             <div class="modal-body">
                 <div id="userMessage"></div>
 
-                <div class="alert alert-success">@Component.Invoke("Debt")</div>
+                <div class="alert alert-success">@Component.Invoke("Debt",true)</div>
             </div>
         </div>
     </div>
@@ -147,8 +147,15 @@
             <div class="modal-body">
                 <div id="userMessage"></div>
 
-                <div class="alert alert-success">@Component.Invoke("Debt")</div>
+                <div class="alert alert-success">@Component.Invoke("Debt", false)</div>
             </div>
         </div>
     </div>
-</div>
+
+</div><p>Date: <input type="text" id="datepicker"></p>
+
+<script>
+    $(function () {
+        $("#datepicker").datepicker();
+    });
+</script>

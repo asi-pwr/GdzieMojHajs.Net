@@ -54,6 +54,15 @@ namespace GdzieMojHajs.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(Debt debt)
         {
+            if (debt.DebtOwnerId == 0)
+            {
+                debt.DebtOwnerId = _context.UserProfileInfo.Where(x => x.Email == User.Identity.Name).First().Id;
+            }
+            else if (debt.DebtReceiverId == 0)
+            {
+                debt.DebtReceiverId = _context.UserProfileInfo.Where(x => x.Email == User.Identity.Name).First().Id;
+            }
+
             if (ModelState.IsValid)
             {
                 _context.Debt.Add(debt);

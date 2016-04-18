@@ -19,11 +19,15 @@ namespace GdzieMojHajs.Models
         }
 
         //place for DebtMigration
-        public IViewComponentResult Invoke()
+        public IViewComponentResult Invoke(bool owned)
         {
-            ViewData["DebtOwnerId"] = new SelectList(_context.UserProfileInfo, "Id", "Email");
-            ViewData["DebtReceiverId"] = new SelectList(_context.UserProfileInfo, "Id", "Email");
-            return View(new Debt());
+            // user can't choose himself
+            ViewData["DebtorsId"] = new SelectList(_context.UserProfileInfo, "Id", "Email").Where(x => x.Text != User.Identity.Name);
+
+            if (owned == true)
+                return View("OwnedDebt",new Debt());
+            else
+                return View("ReceivedDebt", new Debt());
         }
     }
 }

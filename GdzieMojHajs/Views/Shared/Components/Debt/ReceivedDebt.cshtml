@@ -19,12 +19,12 @@
         <div class="form-group">
             <label asp-for="Comment" class="col-md-2 control-label"></label>
             <div class="col-md-10">
-                <input asp-for="Comment" class="form-control" />
+                <textarea asp-for="Comment" class="form-control"></textarea>
                 <span asp-validation-for="Comment" class="text-danger" />
             </div>
         </div>
         <div class="form-group">
-            <label asp-for="Date" class="col-md-2 control-label"></label>
+            <label asp-for="Date" class="col-md-2 control-label" ></label>
             <div class="col-md-10">
                 <input asp-for="Date" class="form-control" />
                 <span asp-validation-for="Date" class="text-danger" />
@@ -33,15 +33,9 @@
         <div class="form-group">
             <label asp-for="DebtOwnerId" class="col-md-2 control-label"></label>
             <div class="col-md-10">
-                <select asp-for="DebtOwnerId" asp-items=@((IEnumerable<SelectListItem>)ViewData["DebtOwnerId"]) class="form-control"></select>
+                <select asp-for="DebtOwnerId" asp-items=@((IEnumerable<SelectListItem>)ViewData["DebtorsId"]) class="form-control"></select>
             </div>
             @*@Html.DropDownListFor(m => m.DebtOwnerId, (IEnumerable<SelectListItem>)ViewData["DebtOwnerId"])*@
-        </div>
-        <div class="form-group">
-            <label asp-for="DebtReceiverId" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <select asp-for="DebtReceiverId" asp-items=@((IEnumerable<SelectListItem>)ViewData["DebtReceiverId"]) class="form-control"></select>
-            </div>
         </div>
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
