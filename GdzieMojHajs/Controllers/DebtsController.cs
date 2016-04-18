@@ -58,7 +58,7 @@ namespace GdzieMojHajs.Controllers
             {
                 _context.Debt.Add(debt);
                 _context.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index","UserProfileInfoes");
             }
             ViewData["DebtOwnerId"] = new SelectList(_context.UserProfileInfo, "Id", "Email", debt.DebtOwnerId);
             ViewData["DebtReceiverId"] = new SelectList(_context.UserProfileInfo, "Id", "Email", debt.DebtReceiverId);

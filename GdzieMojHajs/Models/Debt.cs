@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNet.Mvc;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -25,6 +26,5 @@ namespace GdzieMojHajs.Models
         public virtual UserProfileInfo DebtReceiver { get; set; }
 
         //place for DebtMigration
-
     }
 }
