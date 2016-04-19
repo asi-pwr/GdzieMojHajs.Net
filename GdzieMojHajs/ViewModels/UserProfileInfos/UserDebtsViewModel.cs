@@ -1,4 +1,5 @@
 ﻿using GdzieMojHajs.Models;
+using GdzieMojHajs.ViewModels.Debts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,13 +9,13 @@ namespace GdzieMojHajs.ViewModels.UserProfileInfos
 {
     public class UserDebtsViewModel
     {
-        public List<Debt> OwnedDebts { get; set; }
-        public List<Debt> ReceivedDebts { get; set; }
+        public List<DebtViewModel> OwnedDebts { get; set; }
+        public List<DebtViewModel> ReceivedDebts { get; set; }
 
         public UserDebtsViewModel()
         {
-            OwnedDebts = new List<Debt>();
-            ReceivedDebts = new List<Debt>();
+            OwnedDebts = new List<DebtViewModel>();
+            ReceivedDebts = new List<DebtViewModel>();
         }
     }
 }

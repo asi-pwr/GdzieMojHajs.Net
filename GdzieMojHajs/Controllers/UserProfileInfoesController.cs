@@ -6,6 +6,7 @@ using GdzieMojHajs.Models;
 using Microsoft.AspNet.Authorization;
 using GdzieMojHajs.ViewModels.UserProfileInfos;
 using System.Collections.Generic;
+using GdzieMojHajs.ViewModels.Debts;
 
 namespace GdzieMojHajs.Controllers
 {
@@ -23,16 +24,34 @@ namespace GdzieMojHajs.Controllers
         public IActionResult Index()
         {
             var userDebts = new UserDebtsViewModel();
-            List<Debt> list = new List<Debt>(); 
             var applicationDbContext = _context.Debt.Include(n => n.DebtOwner).Include(n => n.DebtReceiver);
 
             foreach (var debt in applicationDbContext.Where(x=>x.DebtOwner.Email == User.Identity.Name).ToList())
             {
-                userDebts.OwnedDebts.Add(debt);
+
+                userDebts.OwnedDebts.Add(new DebtViewModel
+                {
+                    Amount = debt.Amount,
+                    Comment = debt.Comment,
+                    Date = debt.Date.ToString("dd/MM/yyyy"),
+                    DebtOwner = debt.DebtOwner,
+                    DebtOwnerId = debt.DebtOwnerId,
+                    DebtReceiver = debt.DebtReceiver,
+                    DebtReceiverId = debt.DebtReceiverId
+                });
             }
             foreach (var debt in applicationDbContext.Where(x => x.DebtReceiver.Email == User.Identity.Name).ToList())
             {
-                userDebts.ReceivedDebts.Add(debt);
+                userDebts.ReceivedDebts.Add(new DebtViewModel
+                {
+                    Amount = debt.Amount,
+                    Comment = debt.Comment,
+                    Date = debt.Date.ToString("dd/MM/yyyy"),
+                    DebtOwner = debt.DebtOwner,
+                    DebtOwnerId = debt.DebtOwnerId,
+                    DebtReceiver = debt.DebtReceiver,
+                    DebtReceiverId = debt.DebtReceiverId
+                });
             }
 
             return View(userDebts);

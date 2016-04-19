@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNet.Mvc;
+﻿using GdzieMojHajs.ViewModels.Debts;
+using Microsoft.AspNet.Mvc;
 using Microsoft.AspNet.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
@@ -25,9 +26,9 @@ namespace GdzieMojHajs.Models
             ViewData["DebtorsId"] = new SelectList(_context.UserProfileInfo, "Id", "Email").Where(x => x.Text != User.Identity.Name);
 
             if (owned == true)
-                return View("OwnedDebt",new Debt());
+                return View("OwnedDebt",new DebtViewModel());
             else
-                return View("ReceivedDebt", new Debt());
+                return View("ReceivedDebt", new DebtViewModel());
         }
     }
 }
