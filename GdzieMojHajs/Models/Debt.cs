@@ -26,5 +26,10 @@ namespace GdzieMojHajs.Models
         public virtual UserProfileInfo DebtReceiver { get; set; }
 
         //place for DebtMigration
+
+        public Debt()
+        {
+            Date = DateTime.Now;
+        }
     }
 }
