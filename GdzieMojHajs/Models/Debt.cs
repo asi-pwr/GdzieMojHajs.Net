@@ -16,7 +16,6 @@ namespace GdzieMojHajs.Models
         public string Comment { get; set; }
         public DateTime Date { get; set; }
 
-
         [ForeignKey("UserProfileInfo")]
         public int DebtOwnerId { get; set; }
         public virtual UserProfileInfo DebtOwner { get; set; }

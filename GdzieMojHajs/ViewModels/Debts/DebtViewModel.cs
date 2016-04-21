@@ -10,10 +10,12 @@ namespace GdzieMojHajs.ViewModels.Debts
     public class DebtViewModel
     {
         public double Amount { get; set; }
+        public int IntAmount { get { return (int)(Amount * 100); } set { Amount = (((double)value) / 100); } }  //to get and set int values 
         public string Comment { get; set; }
         public string Date
         {
-            get { return _date.Date.ToString("dd/MM/yyyy"); } set { _date = DateTime.Parse(value); }
+            get { return _date.Date.ToString("dd/MM/yyyy"); }
+            set { _date = DateTime.Parse(value); }
         }
 
 
@@ -31,6 +33,16 @@ namespace GdzieMojHajs.ViewModels.Debts
         {
             _date = DateTime.Now;
         }
+
+        //public int GetAmountToDB()
+        //{
+        //    return (int)(Amount * 100);
+        //}
+
+        //public void SetAmountFromDB(int amount)
+        //{
+        //    Amount = (amount / 100);
+        //}
     }
 }
 

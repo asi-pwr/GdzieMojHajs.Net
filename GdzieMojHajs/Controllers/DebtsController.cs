@@ -4,6 +4,8 @@ using Microsoft.AspNet.Mvc.Rendering;
 using Microsoft.Data.Entity;
 using GdzieMojHajs.Models;
 using System.Collections.Generic;
+using GdzieMojHajs.ViewModels.Debts;
+using System;
 
 namespace GdzieMojHajs.Controllers
 {
@@ -52,7 +54,7 @@ namespace GdzieMojHajs.Controllers
         // POST: Debts/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Debt debt)
+        public IActionResult Create(DebtViewModel debt)
         {
             if (debt.DebtOwnerId == 0)
             {
@@ -65,7 +67,14 @@ namespace GdzieMojHajs.Controllers
 
             if (ModelState.IsValid)
             {
-                _context.Debt.Add(debt);
+                _context.Debt.Add(new Debt()
+                {
+                    Amount = debt.IntAmount,
+                    Comment = debt.Comment,
+                    Date = DateTime.Parse(debt.Date),
+                    DebtOwnerId = debt.DebtOwnerId,
+                    DebtReceiverId = debt.DebtReceiverId
+                });
                 _context.SaveChanges();
                 return RedirectToAction("Index","UserProfileInfoes");
             }

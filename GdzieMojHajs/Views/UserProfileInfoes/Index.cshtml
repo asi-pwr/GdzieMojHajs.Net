@@ -126,10 +126,10 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">Create new book</h4>
+                <h4 class="modal-title" id="myModalLabel1">Create new debt</h4>
             </div>
             <div class="modal-body">
-                <div id="userMessage"></div>
+                <div id="userMessage1"></div>
 
                 <div class="alert alert-success">@Component.Invoke("Debt",true)</div>
             </div>
@@ -142,10 +142,10 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">Create new book</h4>
+                <h4 class="modal-title" id="myModalLabel2">Create new debt</h4>
             </div>
             <div class="modal-body">
-                <div id="userMessage"></div>
+                <div id="userMessage2"></div>
 
                 <div class="alert alert-success">@Component.Invoke("Debt", false)</div>
             </div>
@@ -153,3 +153,16 @@
     </div>
 </div>
 
+<script> 
+$(function() { 
+    $("#datepicker1").datepicker();
+});
+$(function () {
+    $("#datepicker2").datepicker();
+});
+//$('.datepicker2').datepicker({
+//    onSelect: function () {
+//        $('input.datepicker2').text(this.value);
+//    }
+//});
+</script> 

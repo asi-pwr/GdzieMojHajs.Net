@@ -31,7 +31,7 @@ namespace GdzieMojHajs.Controllers
 
                 userDebts.OwnedDebts.Add(new DebtViewModel
                 {
-                    Amount = debt.Amount,
+                    IntAmount = debt.Amount,
                     Comment = debt.Comment,
                     Date = debt.Date.ToString("dd/MM/yyyy"),
                     DebtOwner = debt.DebtOwner,
@@ -44,7 +44,7 @@ namespace GdzieMojHajs.Controllers
             {
                 userDebts.ReceivedDebts.Add(new DebtViewModel
                 {
-                    Amount = debt.Amount,
+                    IntAmount =  debt.Amount,
                     Comment = debt.Comment,
                     Date = debt.Date.ToString("dd/MM/yyyy"),
                     DebtOwner = debt.DebtOwner,
