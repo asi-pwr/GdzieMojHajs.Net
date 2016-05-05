@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -15,7 +16,9 @@ namespace GdzieMojHajs.ViewModels.Debts
         public string Date
         {
             get { return _date.Date.ToString("dd/MM/yyyy"); }
-            set { _date = DateTime.Parse(value); }
+            set {
+                 _date = DateTime.Parse(value);
+            }
         }
 
 
