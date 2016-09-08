@@ -78,6 +78,12 @@
             </div>
             </caption>
             <thead>
+                <style>
+                .panel {
+                
+                display: none;
+                }
+                    </style>
                 <tr>
                     <th>#</th>
                     <th>First Name</th>
@@ -88,32 +94,40 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in Model.ReceivedDebts.Select((item, index) => new { item, index = index + 1 }))
-                {
-                    <tr>
-                        <td>
-                            @item.index
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.item.DebtOwner.Name)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.item.DebtOwner.Surname)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.item.Amount)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.item.Date)
-                        </td>
-                        <td>
-                            <a asp-controller="Home" asp-action="Index" class="glyphicon glyphicon-comment" title="Comment"></a>
-                            <a asp-controller="Home" asp-action="Index" class="glyphicon glyphicon-edit" title="Edit"></a>
-                            <a asp-controller="Home" asp-action="Index" class="glyphicon glyphicon-user" title="Rewrite"></a>
-                            <a asp-controller="Home" asp-action="Index" class="glyphicon glyphicon-ok" title="Pay off"></a>
-                        </td>
-                    </tr>
-                }
+    @foreach (var item in Model.ReceivedDebts.Select((item, index) => new { item, index = index + 1 }))
+    {
+        <tr>
+            <td>
+                @item.index
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.item.DebtOwner.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.item.DebtOwner.Surname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.item.Amount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.item.Date)
+            </td>
+            <td>
+                <a class="flip">
+                    <div class="glyphicon glyphicon-comment" title="Comment"></div>
+                </a>
+                <a asp-controller="Home" asp-action="Index" class="glyphicon glyphicon-edit" title="Edit"></a>
+                <a asp-controller="Home" asp-action="Index" class="glyphicon glyphicon-user" title="Rewrite"></a>
+                <a asp-controller="Home" asp-action="Index" class="glyphicon glyphicon-ok" title="Pay off"></a>
+            </td>
+        </tr>
+                
+        <tr>
+                <td>
+                    <div class="panel"><div>@Html.DisplayFor(modelItem => item.item.Comment)</div></div>
+                </td>
+        </tr>
+    }
             </tbody>
         </table>
     </div>
@@ -153,8 +167,12 @@
     </div>
 </div>
 
-<script> 
-$(function() { 
+
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
+<script>
+
+$(function() {
     $("#datepicker1").datepicker({ dateFormat: 'dd-mm-yy' });
 });
 $(function () {
@@ -164,5 +182,13 @@ $(function () {
 //    onSelect: function () {
 //        $('input.datepicker2').text(this.value);
 //    }
-//});
+    //});
+
+$(document).ready(function(){
+    $(".flip").click(function () {
+        $nextComment = $(this).closest('tr').next().find('.panel');
+        $nextComment.slideToggle(500);
+    });
+});
+
 </script> 
