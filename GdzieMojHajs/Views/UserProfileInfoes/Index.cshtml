@@ -53,12 +53,20 @@
                                 @Html.DisplayFor(modelItem => item.item.Date)
                             </td>
                             <td>
-                                <a asp-controller="Home" asp-action="Index" class="glyphicon glyphicon-comment" title="Comment"></a>
+                                <a class="flip">
+                                    <div class="glyphicon glyphicon-comment" title="Comment"></div>
+                                </a>
                                 <a asp-controller="Home" asp-action="Index" class="glyphicon glyphicon-edit" title="Edit"></a>
                                 <a asp-controller="Home" asp-action="Index" class="glyphicon glyphicon-user" title="Rewrite"></a>
                                 <a asp-controller="Home" asp-action="Index" class="glyphicon glyphicon-ok" title="Pay off"></a>
                             </td>
                         </tr>
+                        <tr>
+                            <td>
+                                <div class="panel"><div>@Html.DisplayFor(modelItem => item.item.Comment)</div></div>
+                            </td>
+                        </tr>
+
                     }
                 </tbody>
 
@@ -78,12 +86,7 @@
             </div>
             </caption>
             <thead>
-                <style>
-                .panel {
-                
-                display: none;
-                }
-                    </style>
+
                 <tr>
                     <th>#</th>
                     <th>First Name</th>

@@ -49,6 +49,9 @@ table caption{
 #MyDebts>caption{
     background-color:#d9534f;
 }
+.panel {                
+display: none;
+}
 
 a{
     text-decoration:none !important; 
