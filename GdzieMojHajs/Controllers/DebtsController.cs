@@ -46,8 +46,18 @@ namespace GdzieMojHajs.Controllers
         // GET: Debts/Create
         public IActionResult Create()
         {
-            ViewData["DebtOwnerId"] = new SelectList(_context.UserProfileInfo, "Id", "Email");
-            ViewData["DebtReceiverId"] = new SelectList(_context.UserProfileInfo, "Id", "Email");
+            var users = _context.UserProfileInfo;
+            List<object> newList = new List<object>();
+
+            foreach (var member in users)
+                newList.Add(new
+                {
+                    Id = member.Id,
+                    Name = member.Name + " " + member.Surname
+                });
+
+            ViewData["DebtOwnerId"] = new SelectList(newList, "Id", "Name");
+            ViewData["DebtReceiverId"] = new SelectList(newList, "Id", "Name");
             return View();
         }
 
@@ -60,6 +70,7 @@ namespace GdzieMojHajs.Controllers
             {
                 debt.DebtOwnerId = _context.UserProfileInfo.Where(x => x.Email == User.Identity.Name).First().Id;
             }
+
             else if (debt.DebtReceiverId == 0)
             {
                 debt.DebtReceiverId = _context.UserProfileInfo.Where(x => x.Email == User.Identity.Name).First().Id;
@@ -78,8 +89,19 @@ namespace GdzieMojHajs.Controllers
                 _context.SaveChanges();
                 return RedirectToAction("Index","UserProfileInfoes");
             }
-            ViewData["DebtOwnerId"] = new SelectList(_context.UserProfileInfo, "Id", "Email", debt.DebtOwnerId);
-            ViewData["DebtReceiverId"] = new SelectList(_context.UserProfileInfo, "Id", "Email", debt.DebtReceiverId);
+
+            var users = _context.UserProfileInfo;
+            List<object> newList = new List<object>();
+
+            foreach (var member in users)
+                newList.Add(new
+                {
+                    Id = member.Id,
+                    Name = member.Name + " " + member.Surname
+                });
+
+            ViewData["DebtOwnerId"] = new SelectList(newList, "Id", "Name", debt.DebtOwnerId);
+            ViewData["DebtReceiverId"] = new SelectList(newList, "Id", "Name", debt.DebtReceiverId);
             return View(debt);
         }
 

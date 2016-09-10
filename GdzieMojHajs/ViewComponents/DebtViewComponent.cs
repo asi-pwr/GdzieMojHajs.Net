@@ -23,7 +23,22 @@ namespace GdzieMojHajs.Models
         public IViewComponentResult Invoke(bool owned)
         {
             // user can't choose himself
-            ViewData["DebtorsId"] = new SelectList(_context.UserProfileInfo, "Id", "Email").Where(x => x.Text != User.Identity.Name);
+            var users = _context.UserProfileInfo;
+            List<object> newList = new List<object>();
+
+            foreach (var member in users)
+            {
+                if (member.Email != User.Identity.Name)
+                {
+                    newList.Add(new
+                    {
+                        Id = member.Id,
+                        Name = member.Name + " " + member.Surname
+                    });
+                }
+            }
+
+            ViewData["DebtorsId"] = new SelectList(newList, "Id", "Name");
 
             if (owned == true)
                 return View("OwnedDebt",new DebtViewModel());
