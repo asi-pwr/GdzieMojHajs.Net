@@ -1,7 +1,7 @@
 using System.Linq;
-using Microsoft.AspNet.Mvc;
-using Microsoft.AspNet.Mvc.Rendering;
-using Microsoft.Data.Entity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using GdzieMojHajs.Models;
 using System.Collections.Generic;
 using GdzieMojHajs.ViewModels.Debts;
@@ -31,13 +31,13 @@ namespace GdzieMojHajs.Controllers
         {
             if (id == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
 
             Debt debt = _context.Debt.Single(m => m.Id == id);
             if (debt == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
 
             return View(debt);
@@ -110,13 +110,13 @@ namespace GdzieMojHajs.Controllers
         {
             if (id == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
 
             Debt debt = _context.Debt.Single(m => m.Id == id);
             if (debt == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
             ViewData["DebtOwnerId"] = new SelectList(_context.UserProfileInfo, "Id", "DebtOwner", debt.DebtOwnerId);
             ViewData["DebtReceiverId"] = new SelectList(_context.UserProfileInfo, "Id", "DebtReceiver", debt.DebtReceiverId);
@@ -145,13 +145,13 @@ namespace GdzieMojHajs.Controllers
         {
             if (id == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
 
             Debt debt = _context.Debt.Single(m => m.Id == id);
             if (debt == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
 
             return View(debt);

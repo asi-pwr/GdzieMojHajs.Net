@@ -1,12 +1,11 @@
 using System.Linq;
-using Microsoft.AspNet.Mvc;
-using Microsoft.AspNet.Mvc.Rendering;
-using Microsoft.Data.Entity;
+using Microsoft.EntityFrameworkCore;
 using GdzieMojHajs.Models;
-using Microsoft.AspNet.Authorization;
 using GdzieMojHajs.ViewModels.UserProfileInfos;
 using System.Collections.Generic;
 using GdzieMojHajs.ViewModels.Debts;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace GdzieMojHajs.Controllers
 {
@@ -62,13 +61,13 @@ namespace GdzieMojHajs.Controllers
         {
             if (id == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
 
             UserProfileInfo userProfileInfo = _context.UserProfileInfo.Single(m => m.Id == id);
             if (userProfileInfo == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
 
             return View(userProfileInfo);
@@ -99,13 +98,13 @@ namespace GdzieMojHajs.Controllers
         {
             if (id == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
 
             UserProfileInfo userProfileInfo = _context.UserProfileInfo.Single(m => m.Id == id);
             if (userProfileInfo == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
             return View(userProfileInfo);
         }
@@ -130,13 +129,13 @@ namespace GdzieMojHajs.Controllers
         {
             if (id == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
 
             UserProfileInfo userProfileInfo = _context.UserProfileInfo.Single(m => m.Id == id);
             if (userProfileInfo == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
 
             return View(userProfileInfo);

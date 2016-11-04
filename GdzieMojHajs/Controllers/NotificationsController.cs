@@ -1,13 +1,10 @@
 using System.Linq;
-using Microsoft.AspNet.Mvc;
-using Microsoft.AspNet.Mvc.Rendering;
-using Microsoft.Data.Entity;
 using GdzieMojHajs.Models;
 using System.Collections.Generic;
 using GdzieMojHajs.ViewModels.Notifications;
-using Microsoft.AspNet.Identity;
-using System.Security.Claims;
-using System;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace GdzieMojHajs.Controllers
 {
@@ -32,13 +29,13 @@ namespace GdzieMojHajs.Controllers
         {
             if (id == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
 
             Notification notification = _context.Notification.Single(m => m.Id == id);
             if (notification == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
 
             return View(notification);
@@ -119,13 +116,13 @@ namespace GdzieMojHajs.Controllers
         {
             if (id == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
 
             Notification notification = _context.Notification.Single(m => m.Id == id);
             if (notification == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
             ViewData["DebtId"] = new SelectList(_context.Debt, "Id", "Debt", notification.DebtId);
             ViewData["NotificationReceiverId"] = new SelectList(_context.UserProfileInfo, "Id", "NotificationReceiver", notification.NotificationReceiverId);
@@ -156,13 +153,13 @@ namespace GdzieMojHajs.Controllers
         {
             if (id == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
 
             Notification notification = _context.Notification.Single(m => m.Id == id);
             if (notification == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
 
             return View(notification);
