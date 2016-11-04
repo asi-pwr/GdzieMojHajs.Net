@@ -35,7 +35,7 @@ namespace GdzieMojHajs.Controllers
             _emailSender = emailSender;
             _smsSender = smsSender;
             _context = context;
-            _logger = loggerFactory.CreateLogger<AccountController>();
+            //_logger = loggerFactory.CreateLogger<AccountController>();
         }
 
         /// <summary>
