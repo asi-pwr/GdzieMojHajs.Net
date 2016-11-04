@@ -1,16 +1,18 @@
 @using System.Security.Claims
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
 
 
 
 <ul class="nav navbar-nav navbar-right">    @* if user signed in *@
     <li><a asp-controller="Home" asp-action="Index" class="glyphicon glyphicon-cog"></a></li>
 </ul>
-@if (User.IsSignedIn())
+@if (SignInManager.IsSignedIn(User))
 {
     <form asp-controller="Account" asp-action="LogOff" method="post" id="logoutForm" class="navbar-right">
         <ul class="nav navbar-nav navbar-right">
             <li>
-                <a asp-controller="Manage" asp-action="Index" title="Manage">Hello @User.GetUserName()!</a>
+                <a asp-controller="Manage" asp-action="Index" title="Manage">Hello @UserManager.GetUserName(User)!</a>
             </li>
             <li>
                 <a asp-controller="Notifications" asp-action="Index" title="Notifications"><i class="glyphicon glyphicon-envelope"></i></a>
