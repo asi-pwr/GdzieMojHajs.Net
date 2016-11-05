@@ -148,7 +148,7 @@
             <div class="modal-body">
                 <div id="userMessage1"></div>
 
-                <div class="alert alert-success">@Component.Invoke("Debt",true)</div>
+                <div class="alert alert-success">@Component.InvokeAsync("Debt",true).Result</div>
             </div>
         </div>
     </div>
@@ -164,7 +164,7 @@
             <div class="modal-body">
                 <div id="userMessage2"></div>
 
-                <div class="alert alert-success">@Component.Invoke("Debt", false)</div>
+                <div class="alert alert-success">@Component.InvokeAsync("Debt", false).Result</div>
             </div>
         </div>
     </div>
