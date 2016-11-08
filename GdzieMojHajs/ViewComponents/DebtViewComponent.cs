@@ -40,10 +40,17 @@ namespace GdzieMojHajs.Models
 
             ViewData["DebtorsId"] = new SelectList(newList, "Id", "Name");
 
-            if (owned == true)
-                return View("OwnedDebt",new DebtViewModel());
-            else
+            if(!owned)
+            {
                 return View("ReceivedDebt", new DebtViewModel());
+            }
+
+            else
+            {
+                return View("OwnedDebt", new DebtViewModel());
+            }
+
+
         }
     }
 }
