@@ -167,5 +167,20 @@ namespace GdzieMojHajs.Controllers
             _context.SaveChanges();
             return RedirectToAction("Index");
         }
+
+        [ActionName("PayOff")]
+        public IActionResult PayOff(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            Debt toRemove = _context.Debt.Single(x => x.Id == id);
+            _context.Debt.Remove(toRemove);
+            _context.SaveChanges();
+            return RedirectToAction("Index", "UserProfileInfoes");
+        }
+
     }
 }

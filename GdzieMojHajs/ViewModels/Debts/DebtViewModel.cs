@@ -1,6 +1,7 @@
 ﻿using GdzieMojHajs.Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Globalization;
 using System.Linq;
@@ -10,6 +11,8 @@ namespace GdzieMojHajs.ViewModels.Debts
 {
     public class DebtViewModel
     {
+        [Key]
+        public int Id { get; set; }
         public double Amount { get; set; }
         public int IntAmount { get { return (int)(Amount * 100); } set { Amount = (((double)value) / 100); } }  //to get and set int values 
         public string Comment { get; set; }

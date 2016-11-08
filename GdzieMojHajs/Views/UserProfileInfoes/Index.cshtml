@@ -58,7 +58,8 @@
                                 </a>
                                 <a asp-controller="Home" asp-action="Index" class="glyphicon glyphicon-edit" title="Edit"></a>
                                 <a asp-controller="Home" asp-action="Index" class="glyphicon glyphicon-user" title="Rewrite"></a>
-                                <a asp-controller="Home" asp-action="Index" class="glyphicon glyphicon-ok" title="Pay off"></a>
+                                @Html.ActionLink("", "PayOff", "Debts", new { item.item.Id }, new { @class = "glyphicon glyphicon-ok", @title ="Pay Off" })
+                                
                             </td>
                         </tr>
                         <tr>
@@ -121,7 +122,7 @@
                 </a>
                 <a asp-controller="Home" asp-action="Index" class="glyphicon glyphicon-edit" title="Edit"></a>
                 <a asp-controller="Home" asp-action="Index" class="glyphicon glyphicon-user" title="Rewrite"></a>
-                <a asp-controller="Home" asp-action="Index" class="glyphicon glyphicon-ok" title="Pay off"></a>
+                @Html.ActionLink("", "PayOff", "Debts", new { item.item.Id }, new { @class = "glyphicon glyphicon-ok", @title = "Pay Off" })
             </td>
         </tr>
                 
