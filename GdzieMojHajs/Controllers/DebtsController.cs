@@ -118,21 +118,35 @@ namespace GdzieMojHajs.Controllers
             {
                 return NotFound();
             }
+
+            DebtViewModel viewModel = new ViewModels.Debts.DebtViewModel
+            {
+                Id = debt.Id,
+                IntAmount = debt.Amount,
+                Comment = debt.Comment,
+                Date = debt.Date.ToString("dd/MM/yyyy"),
+                DebtOwner = debt.DebtOwner,
+                DebtOwnerId = debt.DebtOwnerId,
+                DebtReceiver = debt.DebtReceiver,
+                DebtReceiverId = debt.DebtReceiverId
+            };
+
             ViewData["DebtOwnerId"] = new SelectList(_context.UserProfileInfo, "Id", "DebtOwner", debt.DebtOwnerId);
             ViewData["DebtReceiverId"] = new SelectList(_context.UserProfileInfo, "Id", "DebtReceiver", debt.DebtReceiverId);
-            return View(debt);
+            return PartialView("_EditDebtPartial",viewModel);
         }
 
         // POST: Debts/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(Debt debt)
+        public IActionResult Edit(DebtViewModel debt)
         {
             if (ModelState.IsValid)
             {
-                _context.Update(debt);
+                Debt toUpdate = _context.Debt.Single(m => m.Id == debt.Id);
+                _context.Update(toUpdate);
                 _context.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "UserProfileInfoes");
             }
             ViewData["DebtOwnerId"] = new SelectList(_context.UserProfileInfo, "Id", "DebtOwner", debt.DebtOwnerId);
             ViewData["DebtReceiverId"] = new SelectList(_context.UserProfileInfo, "Id", "DebtReceiver", debt.DebtReceiverId);
