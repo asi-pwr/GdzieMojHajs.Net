@@ -1,10 +1,10 @@
 ﻿@model GdzieMojHajs.ViewModels.Debts.DebtViewModel
 
         <td>
-            @Html.DisplayFor(m => m.DebtOwner.Name)
+            @Html.DisplayFor(m => m.DebtReceiver.Name)
         </td>
         <td>
-            @Html.DisplayFor(m => m.DebtOwner.Surname)
+            @Html.DisplayFor(m => m.DebtReceiver.Surname)
         </td>
         <td>
             @Html.DisplayFor(m => m.Amount)
@@ -13,12 +13,10 @@
             @Html.DisplayFor(m => m.Date)
         </td>
         <td>
-            <a class="flip">
-                <div class="glyphicon glyphicon-comment" title="Comment"></div>
-            </a>
-            <a asp-controller="Home" asp-action="Index" class="glyphicon glyphicon-edit" title="Edit"></a>
+            <a class="flip"><div class="glyphicon glyphicon-comment" title="Comment"></div></a>
             <a asp-controller="Home" asp-action="Index" class="glyphicon glyphicon-user" title="Rewrite"></a>
             @Html.ActionLink("", "PayOff", "Debts", new {Model.Id }, new { @class = "glyphicon glyphicon-ok", @title = "Pay Off" })
+            <a class="glyphicon glyphicon-edit edit-debt" data-id="@Model.Id"></a>
         </td>
 
 

@@ -106,6 +106,7 @@ namespace GdzieMojHajs.Controllers
         }
 
         // GET: Debts/Edit/5
+        [HttpGet]
         public IActionResult Edit(int? id)
         {
             if (id == null)
@@ -131,8 +132,19 @@ namespace GdzieMojHajs.Controllers
                 DebtReceiverId = debt.DebtReceiverId
             };
 
-            ViewData["DebtOwnerId"] = new SelectList(_context.UserProfileInfo, "Id", "DebtOwner", debt.DebtOwnerId);
-            ViewData["DebtReceiverId"] = new SelectList(_context.UserProfileInfo, "Id", "DebtReceiver", debt.DebtReceiverId);
+            var users = _context.UserProfileInfo;
+            List<object> newList = new List<object>();
+
+            foreach (var member in users)
+                newList.Add(new
+                {
+                    Id = member.Id,
+                    Name = member.Name + " " + member.Surname
+                });
+
+            ViewData["DebtOwnerId"] = new SelectList(newList, "Id", "Name", debt.DebtOwnerId);
+            ViewData["DebtReceiverId"] = new SelectList(newList, "Id", "Name", debt.DebtReceiverId);
+
             return PartialView("_EditDebtPartial",viewModel);
         }
 
@@ -144,6 +156,12 @@ namespace GdzieMojHajs.Controllers
             if (ModelState.IsValid)
             {
                 Debt toUpdate = _context.Debt.Single(m => m.Id == debt.Id);
+                toUpdate.Amount = debt.IntAmount;
+                toUpdate.Comment = debt.Comment;
+                toUpdate.Date = DateTime.Parse(debt.Date);
+                toUpdate.DebtOwnerId = debt.DebtOwnerId;
+                toUpdate.DebtReceiverId = debt.DebtReceiverId;
+
                 _context.Update(toUpdate);
                 _context.SaveChanges();
                 return RedirectToAction("Index", "UserProfileInfoes");

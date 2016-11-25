@@ -14,76 +14,77 @@
 
 <div class="tables">
     <div class="col-lg-6">
-            <table class="table table-striped" id="MyDebtors">
-                <caption>
-                    <div class="col-lg-11">My Debtors</div>
-                     <div class="col-lg-1">@*<a asp-controller="Debts" asp-action="Create" title="Add new debt" data-target="#createModal"></a>*@
-                         <a  id="createOwnDebt" data-toggle="modal" data-target="#createOwnModal">
-                             <i  class="glyphicon glyphicon-plus" title="Add new debt"></i>
-                         </a>
-                    </div>
-                </caption>
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Ammount</th>
-                        <th>Date</th>
-                        <th>Options</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model.OwnedDebts.Select((item, index) => new { item, index = index + 1 }))
-                    {
-                        <tr>
-                            <td>
-                                @item.index
-                            </td>
-                            @Html.Partial("_DebtPartial", item.item)
-                        </tr>
-                    }
-                </tbody>
-
-            </table>
-    </div>
-
-
-
-    <div class="col-lg-6">
-        <table class="table table-striped" id="MyDebts">
+        <table class="table table-striped" id="MyDebtors">
             <caption>
-                <div class="col-lg-11">My Debts</div>
+                <div class="col-lg-11">My Debtors</div>
                 <div class="col-lg-1">
+                    @*<a asp-controller="Debts" asp-action="Create" title="Add new debt" data-target="#createModal"></a>*@
+                <a id="createOwnDebt" data-toggle="modal" data-target="#createOwnModal">
+                    <i class="glyphicon glyphicon-plus" title="Add new debt"></i>
+                </a>
+            </div>
+        </caption>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Ammount</th>
+                <th>Date</th>
+                <th>Options</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.OwnedDebts.Select((item, index) => new { item, index = index + 1 }))
+            {
+                <tr>
+                    <td>
+                        @item.index
+                    </td>
+                    @Html.Partial("_OwnDebtPartial", item.item)
+                </tr>
+            }
+        </tbody>
+
+    </table>
+</div>
+
+
+
+<div class="col-lg-6">
+    <table class="table table-striped" id="MyDebts">
+        <caption>
+            <div class="col-lg-11">My Debts</div>
+            <div class="col-lg-1">
                 <a id="createReceivedDebt" data-toggle="modal" data-target="#createReceivedModal">
                     <i class="glyphicon glyphicon-plus" title="Add new debt"></i>
                 </a>
             </div>
-            </caption>
-            <thead>
+        </caption>
+        <thead>
 
-                <tr>
-                    <th>#</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Ammount</th>
-                    <th>Date</th>
-                    <th>Options</th>
-                </tr>
-            </thead>
-            <tbody>
-    @foreach (var item in Model.ReceivedDebts.Select((item, index) => new { item, index = index + 1 }))
-    {
-        <tr>
-            <td>
-                @item.index
-            </td>
-            @Html.Partial("_DebtPartial",item.item)
+            <tr>
+                <th>#</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Ammount</th>
+                <th>Date</th>
+                <th>Options</th>
             </tr>
-    }
-            </tbody>
-        </table>
-    </div>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.ReceivedDebts.Select((item, index) => new { item, index = index + 1 }))
+            {
+                <tr>
+                    <td>
+                        @item.index
+                    </td>
+                    @Html.Partial("_ReceivedDebtPartial", item.item)
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
 </div>
 
 
@@ -98,7 +99,7 @@
             <div class="modal-body">
                 <div id="userMessage1"></div>
 
-                <div class="alert alert-success">@Component.InvokeAsync("Debt", new {owned = true }).Result</div>
+                <div class="alert alert-success">@Component.InvokeAsync("Debt", new { owned = true }).Result</div>
             </div>
         </div>
     </div>
@@ -114,54 +115,52 @@
             <div class="modal-body">
                 <div id="userMessage2"></div>
 
-                <div class="alert alert-success">@Component.InvokeAsync("Debt", new {owned = false }).Result</div>
+                <div class="alert alert-success">@Component.InvokeAsync("Debt", new { owned = false }).Result</div>
             </div>
         </div>
     </div>
 </div>
 
-
-<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel">
+<div class="modal fade" id="edit-debt">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel1">Edit debt</h4>
-            </div>
-            <div class="modal-body">
-                <div id="userMessage1"></div>
-
-                <div class="alert alert-success">@Component.InvokeAsync("Debt", new { owned = true }).Result</div>
-            </div>
+            <div id="edit-debt-container"></div>
         </div>
     </div>
-</div>
-
-<div class="modal hide fade in" id="edit-debt">
-    <div id="edit-debt-container"></div>
 </div>
 
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
 <script>
 
-$(function() {
-    $("#datepicker1").datepicker({ dateFormat: 'dd-mm-yy' });
-});
-$(function () {
-    $("#datepicker2").datepicker({ dateFormat: 'dd-mm-yy' });
-});
-//$('.datepicker2').datepicker({
-//    onSelect: function () {
-//        $('input.datepicker2').text(this.value);
-//    }
-    //});
-
-$(document).ready(function(){
-    $(".flip").click(function () {
-        $nextComment = $(this).closest('tr').next().find('.panel');
-        $nextComment.slideToggle(500);
+    $(function () {
+        $("#datepicker1").datepicker({ dateFormat: 'dd-mm-yy' });
     });
-});
+    $(function () {
+        $("#datepicker2").datepicker({ dateFormat: 'dd-mm-yy' });
+    });
 
-</script> 
+    $(document).ready(function () {
+        $(".flip").click(function () {
+            $nextComment = $(this).closest('tr').next().find('.panel');
+            $nextComment.slideToggle(500);
+        });
+    });
+
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.edit-debt').click(function () {
+            var url = "/Debts/Edit"; // the url to the controller
+            var id = $(this).attr('data-id'); // the id that's given to each button in the list
+            jQuery.noConflict();
+            $.get(url + '/' + id, function (data) {
+                $('#edit-debt-container').html(data);
+                $('#edit-debt').modal('show');
+            });
+        });
+    });
+</script>
+
+

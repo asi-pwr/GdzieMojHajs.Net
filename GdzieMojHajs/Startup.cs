@@ -14,6 +14,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using System.Globalization;
+using System.Threading;
 
 namespace GdzieMojHajs
 {
@@ -29,7 +31,9 @@ namespace GdzieMojHajs
                             .AddEnvironmentVariables();
             Configuration = builder.Build();
             Configuration["Data:DefaultConnection:ConnectionString"] = $@"Data Source=./GdzieMojHajs.db";
-
+            CultureInfo newCulture = (CultureInfo)CultureInfo.CurrentCulture.Clone();
+            newCulture.DateTimeFormat.ShortDatePattern = "dd-MM-yyyy";
+            CultureInfo.CurrentCulture = newCulture;
         }
 
         public IConfigurationRoot Configuration { get; set; }
