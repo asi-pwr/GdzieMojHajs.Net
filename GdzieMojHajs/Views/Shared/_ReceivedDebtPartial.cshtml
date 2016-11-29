@@ -14,14 +14,14 @@
 </td>
 <td>
     <a class="flip"><div class="glyphicon glyphicon-comment" title="Comment"></div></a>
-    <a asp-controller="Home" asp-action="Index" class="glyphicon glyphicon-user" title="Rewrite"></a>
-    @Html.ActionLink("", "PayOff", "Debts", new { Model.Id }, new { @class = "glyphicon glyphicon-ok", @title = "Pay Off" })
+    <a class="glyphicon glyphicon-user rewrite-received" data-id="@Model.Id" title="Rewrite"></a>
     <a class="glyphicon glyphicon-edit edit-debt" data-id="@Model.Id"></a>
+    @Html.ActionLink("", "PayOff", "Debts", new { Model.Id }, new { @class = "glyphicon glyphicon-ok", @title = "Pay Off" })
 </td>
 
 
 <tr>
-    <td>
+    <td colspan="6">
         <div class="panel"><div>@Html.DisplayFor(m => m.Comment)</div></div>
     </td>
 </tr>

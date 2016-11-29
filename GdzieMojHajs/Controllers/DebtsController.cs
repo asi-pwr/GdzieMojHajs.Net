@@ -148,6 +148,90 @@ namespace GdzieMojHajs.Controllers
             return PartialView("_EditDebtPartial",viewModel);
         }
 
+        [HttpGet]
+        public IActionResult RewriteOwn(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            Debt debt = _context.Debt.Single(m => m.Id == id);
+            if (debt == null)
+            {
+                return NotFound();
+            }
+
+            DebtViewModel viewModel = new ViewModels.Debts.DebtViewModel
+            {
+                Id = debt.Id,
+                IntAmount = debt.Amount,
+                Comment = debt.Comment,
+                Date = debt.Date.ToString("dd/MM/yyyy"),
+                DebtOwner = debt.DebtOwner,
+                DebtOwnerId = debt.DebtOwnerId,
+                DebtReceiver = debt.DebtReceiver,
+                DebtReceiverId = debt.DebtReceiverId
+            };
+
+            var users = _context.UserProfileInfo;
+            List<object> newList = new List<object>();
+
+            foreach (var member in users)
+                newList.Add(new
+                {
+                    Id = member.Id,
+                    Name = member.Name + " " + member.Surname
+                });
+
+            ViewData["DebtOwnerId"] = new SelectList(newList, "Id", "Name", debt.DebtOwnerId);
+            ViewData["DebtReceiverId"] = new SelectList(newList, "Id", "Name", debt.DebtReceiverId);
+
+            return PartialView("_RewriteOwnPartial", viewModel);
+        }
+
+        [HttpGet]
+        public IActionResult RewriteReceived(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            Debt debt = _context.Debt.Single(m => m.Id == id);
+            if (debt == null)
+            {
+                return NotFound();
+            }
+
+            DebtViewModel viewModel = new ViewModels.Debts.DebtViewModel
+            {
+                Id = debt.Id,
+                IntAmount = debt.Amount,
+                Comment = debt.Comment,
+                Date = debt.Date.ToString("dd/MM/yyyy"),
+                DebtOwner = debt.DebtOwner,
+                DebtOwnerId = debt.DebtOwnerId,
+                DebtReceiver = debt.DebtReceiver,
+                DebtReceiverId = debt.DebtReceiverId
+            };
+
+            var users = _context.UserProfileInfo;
+            List<object> newList = new List<object>();
+
+            foreach (var member in users)
+                newList.Add(new
+                {
+                    Id = member.Id,
+                    Name = member.Name + " " + member.Surname
+                });
+
+            ViewData["DebtOwnerId"] = new SelectList(newList, "Id", "Name", debt.DebtOwnerId);
+            ViewData["DebtReceiverId"] = new SelectList(newList, "Id", "Name", debt.DebtReceiverId);
+
+            return PartialView("_RewriteReceivedPartial", viewModel);
+        }
+
         // POST: Debts/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]

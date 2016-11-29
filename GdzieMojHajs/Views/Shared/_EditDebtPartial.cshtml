@@ -33,20 +33,13 @@
                 <span asp-validation-for="Date" class="text-danger" />
             </div>
         </div>
-        <div class="form-group">
-            <label asp-for="DebtOwnerId" class="control-label col-md-2">DebtOwnerId</label>
-            <div class="col-md-10">
-                <select asp-for="DebtOwnerId" asp-items=@((IEnumerable<SelectListItem>)ViewData["DebtOwnerId"]) class="form-control"></select>
+
+                <select style="display:none" asp-for="DebtOwnerId" asp-items=@((IEnumerable<SelectListItem>)ViewData["DebtOwnerId"]) class="form-control"></select>
                 <span asp-validation-for="DebtOwnerId" class="text-danger" />
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="DebtReceiverId" class="control-label col-md-2">DebtReceiverId</label>
-            <div class="col-md-10">
-                <select asp-for="DebtReceiverId" asp-items=@((IEnumerable<SelectListItem>)ViewData["DebtReceiverId"]) class="form-control"></select>
+
+                <select asp-for="DebtReceiverId" style="display:none"  asp-items=@((IEnumerable<SelectListItem>)ViewData["DebtReceiverId"]) class="form-control"></select>
                 <span asp-validation-for="DebtReceiverId" class="text-danger" />
-            </div>
-        </div>
+
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Save" class="btn btn-default" />
