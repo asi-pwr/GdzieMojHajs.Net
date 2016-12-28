@@ -6,22 +6,27 @@ using GdzieMojHajs.Models;
 using System.Collections.Generic;
 using GdzieMojHajs.ViewModels.Debts;
 using System;
+using GdzieMojHajs.ViewModels.Notifications;
+using GdzieMojHajs.Services;
 
 namespace GdzieMojHajs.Controllers
 {
     public class DebtsController : Controller
     {
         private ApplicationDbContext _context;
+        private NotificationService _notifService;
+        private DebtService _debtService;
 
         public DebtsController(ApplicationDbContext context)
         {
-            _context = context;    
+            _context = context;
+            _debtService = new DebtService(_context);
+            _notifService = new NotificationService(_context);    
         }
 
         // GET: Debts
         public IActionResult Index()
         {
-            var dupa = _context.UserProfileInfo.ToList();
             var applicationDbContext = _context.Debt.Include(d => d.DebtOwner).Include(d => d.DebtReceiver);
             return View(applicationDbContext.ToList());
         }
@@ -66,6 +71,8 @@ namespace GdzieMojHajs.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(DebtViewModel debt)
         {
+            var currentUserProfileInfo = _context.UserProfileInfo.Where(x => x.Email.Equals(User.Identity.Name)).First();
+
             if (debt.DebtOwnerId == 0)
             {
                 debt.DebtOwnerId = _context.UserProfileInfo.Where(x => x.Email == User.Identity.Name).First().Id;
@@ -78,15 +85,23 @@ namespace GdzieMojHajs.Controllers
 
             if (ModelState.IsValid)
             {
-                _context.Debt.Add(new Debt()
+                _debtService.CreateDebt(debt);
+
+                var senderId = currentUserProfileInfo.Id;
+                var receiverId = senderId;
+
+                if (debt.DebtOwnerId == senderId)
                 {
-                    Amount = debt.IntAmount,
-                    Comment = debt.Comment,
-                    Date = DateTime.Parse(debt.Date),
-                    DebtOwnerId = debt.DebtOwnerId,
-                    DebtReceiverId = debt.DebtReceiverId
-                });
-                _context.SaveChanges();
+                    receiverId = debt.DebtReceiverId;
+                }
+
+                else
+                {
+                    receiverId = debt.DebtOwnerId;
+                }
+
+                _notifService.CreateCreateNotification(receiverId, senderId, debt.Id);
+
                 return RedirectToAction("Index","UserProfileInfoes");
             }
 
@@ -237,17 +252,27 @@ namespace GdzieMojHajs.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Edit(DebtViewModel debt)
         {
+            var currentUserProfileInfo = _context.UserProfileInfo.Where(x => x.Email.Equals(User.Identity.Name)).First();
+
             if (ModelState.IsValid)
             {
-                Debt toUpdate = _context.Debt.Single(m => m.Id == debt.Id);
-                toUpdate.Amount = debt.IntAmount;
-                toUpdate.Comment = debt.Comment;
-                toUpdate.Date = DateTime.Parse(debt.Date);
-                toUpdate.DebtOwnerId = debt.DebtOwnerId;
-                toUpdate.DebtReceiverId = debt.DebtReceiverId;
+                _debtService.EditDebt(debt);
 
-                _context.Update(toUpdate);
-                _context.SaveChanges();
+                var senderId = currentUserProfileInfo.Id;
+                var receiverId = senderId;
+
+                if(debt.DebtOwnerId == senderId)
+                {
+                    receiverId = debt.DebtReceiverId;
+                }
+
+                else
+                {
+                    receiverId = debt.DebtOwnerId;
+                }
+
+                _notifService.CreateEditNotification(receiverId, senderId, debt.Id);
+
                 return RedirectToAction("Index", "UserProfileInfoes");
             }
             ViewData["DebtOwnerId"] = new SelectList(_context.UserProfileInfo, "Id", "DebtOwner", debt.DebtOwnerId);
@@ -278,9 +303,9 @@ namespace GdzieMojHajs.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult DeleteConfirmed(int id)
         {
-            Debt debt = _context.Debt.Single(m => m.Id == id);
-            _context.Debt.Remove(debt);
-            _context.SaveChanges();
+            var currentUserProfileInfo = _context.UserProfileInfo.Where(x => x.Email.Equals(User.Identity.Name)).First();
+            _notifService.CreateDeleteNotification(id, currentUserProfileInfo.Id);
+            _debtService.DeleteDebt(id);
             return RedirectToAction("Index");
         }
 
@@ -291,10 +316,12 @@ namespace GdzieMojHajs.Controllers
             {
                 return NotFound();
             }
+            var currentUserProfileInfo = _context.UserProfileInfo.Where(x => x.Email.Equals(User.Identity.Name)).First();
+            var senderId = currentUserProfileInfo.Id;
 
-            Debt toRemove = _context.Debt.Single(x => x.Id == id);
-            _context.Debt.Remove(toRemove);
-            _context.SaveChanges();
+            _notifService.CreateDeleteNotification(id, senderId);
+
+            _debtService.DeleteDebt(id);
             return RedirectToAction("Index", "UserProfileInfoes");
         }
 

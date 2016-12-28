@@ -22,10 +22,6 @@ namespace GdzieMojHajs.Models
         public int NotificationReceiverId { get; set; }
         public virtual UserProfileInfo NotificationReceiver { get; set; }
 
-        [ForeignKey("Debt")]
-        public int DebtId { get; set; }
-        public virtual Debt Debt { get; set; }
-
         //place for DebtMigration
 
     }

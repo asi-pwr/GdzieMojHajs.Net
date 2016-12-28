@@ -20,7 +20,7 @@ namespace GdzieMojHajs.Controllers
         // GET: Notifications
         public IActionResult Index()
         {
-            var applicationDbContext = _context.Notification.Include(n => n.Debt).Include(n => n.NotificationReceiver).Include(n => n.NotificationSender);
+            var applicationDbContext = _context.Notification;
             return View(applicationDbContext.ToList());
         }
 
@@ -62,20 +62,20 @@ namespace GdzieMojHajs.Controllers
                 {
                     //Debt = notification.Debt,
                     //NotificationReceiver = notification.NotificationReceiver,
-                    DebtId = notification.DebtId,
+                    //DebtId = notification.DebtId,
                     NotificationReceiverId = notification.NotificationReceiverId,
                     Text = notification.Text,
-                    NotificationSenderId = currentUserProfileInfo.Id
+                    NotificationSenderId = currentUserProfileInfo.Id,
                     //NotificationSender = _context.UserProfileInfo.Select(x=>x.Email==)
                 };
                 _context.Notification.Add(not);
                 _context.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewData["DebtId"] = ToDebtSelectList(_context.Debt.ToList());
-            ViewData["NotificationReceiverId"] = ToUserSelectList(_context.UserProfileInfo.ToList());
+            //ViewData["DebtId"] = ToDebtSelectList(_context.Debt.ToList());
+            //ViewData["NotificationReceiverId"] = ToUserSelectList(_context.UserProfileInfo.ToList());
 
-            return View(notification);
+            return new EmptyResult();
         }
 
         public List<SelectListItem> ToUserSelectList(List<UserProfileInfo> users)
@@ -124,7 +124,7 @@ namespace GdzieMojHajs.Controllers
             {
                 return NotFound();
             }
-            ViewData["DebtId"] = new SelectList(_context.Debt, "Id", "Debt", notification.DebtId);
+            ViewData["DebtId"] = new SelectList(_context.Debt, "Id", "Debt");
             ViewData["NotificationReceiverId"] = new SelectList(_context.UserProfileInfo, "Id", "NotificationReceiver", notification.NotificationReceiverId);
             ViewData["NotificationSenderId"] = new SelectList(_context.UserProfileInfo, "Id", "NotificationSender", notification.NotificationSenderId);
             return View(notification);
@@ -141,7 +141,7 @@ namespace GdzieMojHajs.Controllers
                 _context.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewData["DebtId"] = new SelectList(_context.Debt, "Id", "Debt", notification.DebtId);
+            ViewData["DebtId"] = new SelectList(_context.Debt, "Id", "Debt");
             ViewData["NotificationReceiverId"] = new SelectList(_context.UserProfileInfo, "Id", "NotificationReceiver", notification.NotificationReceiverId);
             ViewData["NotificationSenderId"] = new SelectList(_context.UserProfileInfo, "Id", "NotificationSender", notification.NotificationSenderId);
             return View(notification);
