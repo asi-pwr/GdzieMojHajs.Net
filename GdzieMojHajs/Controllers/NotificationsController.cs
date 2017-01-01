@@ -20,7 +20,8 @@ namespace GdzieMojHajs.Controllers
         // GET: Notifications
         public IActionResult Index()
         {
-            var applicationDbContext = _context.Notification;
+            var currentUserProfileInfo = _context.UserProfileInfo.Where(x => x.Email.Equals(User.Identity.Name)).First();
+            var applicationDbContext = _context.Notification.Where(x => x.NotificationReceiverId.Equals(currentUserProfileInfo.Id));
             return View(applicationDbContext.ToList());
         }
 

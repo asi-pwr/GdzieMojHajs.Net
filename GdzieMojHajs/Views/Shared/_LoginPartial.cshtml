@@ -15,7 +15,7 @@
                 <a asp-controller="Manage" asp-action="Index" title="Manage">Hello @UserManager.GetUserName(User)!</a>
             </li>
             <li>
-                <a asp-controller="Notifications" asp-action="Index" title="Notifications"><i class="glyphicon glyphicon-envelope"></i></a>
+                <a asp-controller="Notifications" asp-action="Index" title="Notifications"><i class="glyphicon glyphicon-envelope">@ViewBag.Notif</i></a>
             </li>
             <li>
                 <button type="submit" class="btn btn-link navbar-btn navbar-link">Log off</button>

@@ -54,7 +54,8 @@ namespace GdzieMojHajs.Controllers
                     DebtReceiverId = debt.DebtReceiverId
                 });
             }
-
+            var currentUserProfileInfo = _context.UserProfileInfo.Where(x => x.Email.Equals(User.Identity.Name)).First();
+            ViewBag.Notif = _context.Notification.Where(x => x.NotificationReceiverId.Equals(currentUserProfileInfo.Id)).Count();
             return View(userDebts);
         }
 
